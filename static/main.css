@@ -1,0 +1,113 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: arial bold;
+}
+
+blockquote.h1 {
+    font-size: 1em;
+    margin: 0.83em 0;
+    font-weight: bold;
+}
+
+img.logo {
+    height: 40px;
+    float: left;
+}
+
+a.fa-brands {
+    color: #fff;
+    font-size: 50px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.navbarImage {
+    margin: 0 10px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+form {
+    position: relative;
+    right: 20px;
+}
+
+.margin {
+    margin-top: 2%;
+}
+
+h1.title {
+    text-align: center;
+    font-size: 50px;
+    color: purple;
+}
+
+img.emote_image {
+    position: relative;
+    right: -10%;
+    height: 50px;
+    max-width: 30%;
+}
+
+body {
+    background-color: #222222;
+    margin: 0;
+    padding: 0;
+}
+
+div.stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div.top {
+    color: #ebeff2;
+    font-family: arial;
+    overflow-x: hidden;
+    margin: 10px;
+}
+
+div.header {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    background-color: #303030;
+}
+
+div.header h3 {
+    text-align: center;
+    font-size: 2em;
+}
+
+div.emotes {
+    height: 700px;
+    width: 700px;
+    background-color: #444444;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+div.emotes h3.emote_name {
+    position: relative;
+    right: -50%;
+    top: 6%;
+    font-size: 15px;
+}
+
+div.emotes p.emote_usage {
+    position: relative;
+    right: -50%;
+    top: 6%;
+    font-size: 15px;
+}
