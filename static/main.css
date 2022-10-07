@@ -6,7 +6,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: arial bold;
+    font-family: Helvetica;
 }
 
 blockquote.h1 {
@@ -36,8 +36,14 @@ a.fa-brands {
 }
 
 form {
-    position: relative;
-    right: 20px;
+    padding: 0 20px;
+}
+
+#urlInput {
+    padding: 10px;
+    resize: none;
+    outline: none;
+    caret-color: transparent
 }
 
 .margin {
@@ -103,6 +109,8 @@ div.emotes h3.emote_name {
     right: -50%;
     top: 6%;
     font-size: 15px;
+    width: 150px;
+    word-wrap: break-word;
 }
 
 div.emotes p.emote_usage {

@@ -231,9 +231,9 @@
 }
 
 [type="search"] {
+    margin: auto;
     height: 30px;
     outline-offset: -2px;
-    -webkit-appearance: textfield;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -320,7 +320,7 @@ button,
 select,
 optgroup,
 textarea {
-    margin: 0;
+    margin: auto;
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
