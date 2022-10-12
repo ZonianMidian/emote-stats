@@ -1,40 +1,85 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.6">
-        <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-        <link rel="manifest" href="/static/site.webmanifest">
-        <link rel="mask-icon" href="/static/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="/static/favicon.ico">
-        <meta name="apple-mobile-web-app-title" content="Emotes Stats">
-        <meta name="application-name" content="Emotes Stats">
-        <meta name="msapplication-TileColor" content="#603cba">
-        <meta name="msapplication-config" content="/static/browserconfig.xml">
-        <meta name="theme-color" content="#ffffff">
-        <link rel="stylesheet" href="/static/main.css">
-        <link rel="stylesheet" href="/static/bootstrap.css">
+        <meta name="viewport" content="width=device-width, initial-scale=0.6" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/static/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/static/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/static/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/static/site.webmanifest" />
+        <link
+            rel="mask-icon"
+            href="/static/safari-pinned-tab.svg"
+            color="#5bbad5"
+        />
+        <link rel="shortcut icon" href="/static/favicon.ico" />
+        <meta name="apple-mobile-web-app-title" content="Emotes Stats" />
+        <meta name="application-name" content="Emotes Stats" />
+        <meta name="msapplication-TileColor" content="#603cba" />
+        <meta name="msapplication-config" content="/static/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="stylesheet" href="/static/main.css" />
+        <link rel="stylesheet" href="/static/bootstrap.css" />
     </head>
-    
+
     <body>
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark"><a class="navbar-brand" href="/">
-            <img class="navbarImage" src="/static/DankG.png" title="DankG" alt="DankG">Emote Stats</a>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img
+                    class="navbarImage"
+                    src="/static/DankG.png"
+                    title="DankG"
+                    alt="DankG"
+                />Emote Stats</a
+            >
             <div class="navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/global">Global</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/global">Global</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQ</a>
+                    </li>
                 </ul>
             </div>
-            <form id="Search" onsubmit="redirect(); return false" method="get" action="" >
-                <input id="urlInput" type="search" placeholder="Channel" autofocus required>
+            <form
+                id="Search"
+                onsubmit="redirect(); return false"
+                method="get"
+                action=""
+            >
+                <input
+                    id="urlInput"
+                    type="search"
+                    placeholder="Channel"
+                    autofocus
+                    required
+                />
                 <button class="btn btn-primary" type="submit">🔍</button>
             </form>
         </nav>
     </body>
     <script>
-        function redirect(){       
-            window.location.href='/channel/'+document.getElementById("urlInput").value.toLowerCase();              
+        function redirect() {
+            window.location.href =
+                "/channel/" +
+                document.getElementById("urlInput").value.toLowerCase();
         }
     </script>
+</html>

@@ -12,7 +12,7 @@ You can create a [GitHub Issue](https://github.com/ZonianMidian/emote-stats/issu
 
 ## Installation
 
-- `git clone https://github.com/ZonianMidian/emote-stats.git`
-- `cd emote-stats`
-- `npm install`
-- `npm run start`
+-   `git clone https://github.com/ZonianMidian/emote-stats.git`
+-   `cd emote-stats`
+-   `npm install`
+-   `npm run start`
