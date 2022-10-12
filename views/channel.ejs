@@ -1,6 +1,8 @@
 <%- include('navbar') -%>
 <head>
     <title>Stats | <%= user.name %></title>
+    <meta property="og:image" content="<%= user.avatar %>" />
+    <meta name="description" content="Emote Stats for <%= user.name %>" />
 </head>
 <body>
     <div style="text-align: center">
