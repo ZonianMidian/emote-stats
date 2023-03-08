@@ -54,10 +54,10 @@ async function parseEmotes(emotes, extension) {
             const emoteArray = [];
             emotes.map((emote) => {
                 const emoteData = {
-                    name: emote.name,
-                    id: emote.emote,
-                    link: `https://cdn.7tv.app/emote/${emote.emote}/2x`,
-                    usage: emote.usage ?? 0,
+                    name: emote.emote,
+                    id: emote.emote_id,
+                    link: `https://cdn.7tv.app/emote/${emote.emote_id}/2x`,
+                    usage: (emote.count ?? emote.total_count) ?? 0,
                 };
                 emoteArray.push(emoteData);
             });
@@ -95,7 +95,7 @@ async function getChannel(channel) {
     const K =
         K_Status < 200 || K_Status > 299
             ? null
-            : { STV: await parseEmotes(K_Stats.data, "7TV") };
+            : { STV: await parseEmotes(K_Stats.emotes, "7TV") };
 
     if (!SE) return K;
     if (!SE && !K) return null;
@@ -122,8 +122,8 @@ async function getGlobals() {
     });
 
     let sortedEmotes = []
-        .concat(K_Stats_G.data.global, K_Stats_T.data)
-        .sort((a, b) => b.usage - a.usage);
+        .concat(K_Stats_G.emotes, K_Stats_T.emotes)
+        .sort((a, b) => b.total_count - a.total_count);
 
     return {
         BTTV: await parseEmotes(SE_Stats.bttvEmotes, "BTTV"),
