@@ -7,101 +7,155 @@
     <meta property="og:description" content="Global Emote Stats" />
 </head>
 <body>
-    <h1 class="title">Global - Emotes Stats</h1>
-    <div class="stats">
-        <div class="top" id="twitch">
-            <div class="header">
-                <img
-                    class="logo"
-                    src="/static/twitch.png"
-                    alt="Twitch"
-                    draggable="false"
-                />
-                <h3>Twitch</h3>
+    <h1 class="title">Global</h1>
+    <div class="container-fluid">
+        <div class="row" style="justify-content: space-evenly;">
+            <% if (data.Twitch) { %>
+            <div class="top col-md" id="twitch">
+                <div class="header">
+                    <img
+                        class="logo"
+                        src="/static/twitch.png"
+                        alt="Twitch"
+                        draggable="false"
+                    />
+                    <h3>Twitch</h3>
+                </div>
+                <div class="emotes" style="padding:10px">
+                    <% for (const [i, emote] of data.Twitch.entries()) { %>
+                    <div class="row" id="<%= emote.id %>">
+                        <div class="col-2 flex-center countNumber">
+                            <p class="count flex-center"><%= i+1 %></p>
+                        </div>
+                        <div class="col-5 flex-center">
+                            <img
+                                class="emote_image"
+                                src="<%= emote.link %>"
+                                title="<%= emote.name %>"
+                                alt="<%= emote.name %>"
+                                draggable="false"
+                                onerror="this.onerror=null;this.src='/static/unavailable.png';"
+                            />
+                        </div>
+                        <div class="col-5">
+                            <h3 class="emote_name"><%= emote.name %></h3>
+                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
             </div>
-            <div class="emotes">
-                <% for (const emote of data.Twitch) { %>
-                <h3 class="emote_name"><%= emote.name %></h3>
-                <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
-                <img
-                    class="emote_image"
-                    src="<%= emote.link %>"
-                    onerror="this.src='/static/unavailable.png';"
-                />
-                <% } %>
+            <% } %> <% if (data.BTTV) { %>
+            <div class="top col-md" id="bttv">
+                <div class="header">
+                    <img
+                        class="logo"
+                        src="/static/bttv.png"
+                        title="BetterTTV"
+                        alt="BetterTTV"
+                        draggable="false"
+                    />
+                    <h3 class="largeName">BetterTTV</h3>
+                    <h3 class="shortName">BTTV</h3>
+                </div>
+                <div class="emotes" style="padding:10px">
+                    <% for (const [i, emote] of data.BTTV.entries()) { %>
+                    <div class="row" id="<%= emote.id %>">
+                        <div class="col-2 flex-center countNumber">
+                            <p class="count flex-center"><%= i+1 %></p>
+                        </div>
+                        <div class="col-5 flex-center">
+                            <img
+                                class="emote_image"
+                                src="<%= emote.link %>"
+                                title="<%= emote.name %>"
+                                alt="<%= emote.name %>"
+                                draggable="false"
+                                onerror="this.onerror=null;this.src='/static/unavailable.png';"
+                            />
+                        </div>
+                        <div class="col-5">
+                            <h3 class="emote_name"><%= emote.name %></h3>
+                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
             </div>
-        </div>
-
-        <div class="top" id="bttv">
-            <div class="header">
-                <img
-                    class="logo"
-                    src="/static/bttv.png"
-                    title="BetterTTV"
-                    alt="BetterTTV"
-                    draggable="false"
-                />
-                <h3>BetterTTV</h3>
+            <% } %> <% if (data.FFZ) { %>
+            <div class="top col-md" id="ffz">
+                <div class="header">
+                    <img
+                        class="logo"
+                        src="/static/ffz.png"
+                        title="FrankerFaceZ"
+                        alt="FrankerFaceZ"
+                        draggable="false"
+                    />
+                    <h3 class="largeName">FrankerFaceZ</h3>
+                    <h3 class="shortName">FFZ</h3>
+                </div>
+                <div class="emotes" style="padding:10px">
+                    <% for (const [i, emote] of data.FFZ.entries()) { %>
+                    <div class="row" id="<%= emote.id %>">
+                        <div class="col-2 flex-center countNumber">
+                            <p class="count flex-center"><%= i+1 %></p>
+                        </div>
+                        <div class="col-5 flex-center">
+                            <img
+                                class="emote_image"
+                                src="<%= emote.link %>"
+                                title="<%= emote.name %>"
+                                alt="<%= emote.name %>"
+                                draggable="false"
+                                onerror="this.onerror=null;this.src='/static/unavailable.png';"
+                            />
+                        </div>
+                        <div class="col-5">
+                            <h3 class="emote_name"><%= emote.name %></h3>
+                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
             </div>
-            <div class="emotes">
-                <% for (const emote of data.BTTV) { %>
-                <h3 class="emote_name"><%= emote.name %></h3>
-                <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
-                <img
-                    class="emote_image"
-                    src="<%= emote.link %>"
-                    onerror="this.src='/static/unavailable.png';"
-                />
-                <% } %>
+            <% } %> <% if (data.STV) { %>
+            <div class="top col-md" id="stv">
+                <div class="header">
+                    <img
+                        class="logo"
+                        src="/static/7tv.png"
+                        title="7TV"
+                        alt="7TV"
+                        draggable="false"
+                    />
+                    <h3>7TV</h3>
+                </div>
+                <div class="emotes" style="padding:10px">
+                    <% for (const [i, emote] of data.STV.entries()) { %>
+                    <div class="row" id="<%= emote.id %>">
+                        <div class="col-2 flex-center countNumber">
+                            <p class="count flex-center"><%= i+1 %></p>
+                        </div>
+                        <div class="col-5 flex-center">
+                            <img
+                                class="emote_image"
+                                src="<%= emote.link %>"
+                                title="<%= emote.name %>"
+                                alt="<%= emote.name %>"
+                                draggable="false"
+                                onerror="this.onerror=null;this.src='/static/unavailable.png';"
+                            />
+                        </div>
+                        <div class="col-5">
+                            <h3 class="emote_name"><%= emote.name %></h3>
+                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
             </div>
-        </div>
-
-        <div class="top" id="ffz">
-            <div class="header">
-                <img
-                    class="logo"
-                    src="/static/ffz.png"
-                    title="FrankerFaceZ"
-                    alt="FrankerFaceZ"
-                    draggable="false"
-                />
-                <h3>FrankerFaceZ</h3>
-            </div>
-            <div class="emotes">
-                <% for (const emote of data.FFZ) { %>
-                <h3 class="emote_name"><%= emote.name %></h3>
-                <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
-                <img
-                    class="emote_image"
-                    src="<%= emote.link %>"
-                    onerror="this.src='/static/unavailable.png';"
-                />
-                <% } %>
-            </div>
-        </div>
-
-        <div class="top" id="stv">
-            <div class="header">
-                <img
-                    class="logo"
-                    src="/static/7tv.png"
-                    title="7TV"
-                    alt="7TV"
-                    draggable="false"
-                />
-                <h3>7TV</h3>
-            </div>
-            <div class="emotes">
-                <% for (const emote of data.STV) { %>
-                <h3 class="emote_name"><%= emote.name %></h3>
-                <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
-                <img
-                    class="emote_image"
-                    src="<%= emote.link %>"
-                    onerror="this.src='/static/unavailable.png';"
-                />
-                <% } %>
-            </div>
+            <% } %>
         </div>
     </div>
 </body>

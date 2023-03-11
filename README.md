@@ -4,7 +4,7 @@
 
 This allows you to view shareable emote usage from Twitch and its third-party emote providers
 
-![image](https://i.imgur.com/cWPVLOn.png)
+![image](https://i.imgur.com/Ds3xSWL.png)
 
 ## Issues/Suggestions
 

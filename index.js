@@ -13,6 +13,7 @@ async function getInfo(user) {
         {
             throwHttpErrors: false,
             responseType: "json",
+            headers: {"User-Agent": "Emote Stats by ZonianMidian"}
         }
     );
     if (statusCode < 200 || statusCode > 299) return null;
@@ -56,7 +57,7 @@ async function parseEmotes(emotes, extension) {
                 const emoteData = {
                     name: emote.emote,
                     id: emote.emote_id,
-                    link: `https://cdn.7tv.app/emote/${emote.emote_id}/2x`,
+                    link: `https://cdn.7tv.app/emote/${emote.emote_id}/2x.webp`,
                     usage: (emote.count ?? emote.total_count) ?? 0,
                 };
                 emoteArray.push(emoteData);
@@ -74,6 +75,7 @@ async function getChannel(channel) {
         {
             throwHttpErrors: false,
             responseType: "json",
+            headers: {"User-Agent": "Emote Stats by ZonianMidian"}
         }
     );
     const SE =
@@ -90,6 +92,7 @@ async function getChannel(channel) {
         {
             throwHttpErrors: false,
             responseType: "json",
+            headers: {"User-Agent": "Emote Stats by ZonianMidian"}
         }
     );
     const K =
@@ -108,17 +111,20 @@ async function getGlobals() {
         {
             throwHttpErrors: false,
             responseType: "json",
+            headers: {"User-Agent": "Emote Stats by ZonianMidian"}
         }
     );
 
     const { body: K_Stats_G } = await got(`https://api.kattah.me/global`, {
         throwHttpErrors: false,
         responseType: "json",
+        headers: {"User-Agent": "Emote Stats by ZonianMidian"}
     });
 
     const { body: K_Stats_T } = await got(`https://api.kattah.me/top`, {
         throwHttpErrors: false,
         responseType: "json",
+        headers: {"User-Agent": "Emote Stats by ZonianMidian"}
     });
 
     let sortedEmotes = []

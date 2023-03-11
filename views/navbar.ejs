@@ -1,88 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.6" />
-        <meta property="og:url" content="https://stats.zonian.me/" />
-        <meta name="keywords" content="twitch, chat, emote, stats" />
-        <meta property="og:type" content="website" />
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/static/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/static/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/static/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/static/site.webmanifest" />
-        <link
-            rel="mask-icon"
-            href="/static/safari-pinned-tab.svg"
-            color="#5bbad5"
-        />
-        <link rel="shortcut icon" href="/static/favicon.ico" />
-        <meta name="apple-mobile-web-app-title" content="Emotes Stats" />
-        <meta name="application-name" content="Emotes Stats" />
-        <meta name="msapplication-TileColor" content="#603cba" />
-        <meta name="msapplication-config" content="/static/browserconfig.xml" />
-        <meta name="theme-color" content="#ffffff" />
-        <link rel="stylesheet" href="/static/main.css" />
-        <link rel="stylesheet" href="/static/bootstrap.css" />
-    </head>
 
-    <body>
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-            <a class="navbar-brand" href="/">
-                <img
-                    class="navbarImage"
-                    src="/static/DankG.png"
-                    title="DankG"
-                    alt="DankG"
-                />Emote Stats</a
-            >
-            <div class="navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/global">Global</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/faq">FAQ</a>
-                    </li>
-                </ul>
-            </div>
-            <form
-                id="Search"
-                onsubmit="redirect(); return false"
-                method="get"
-                action=""
-            >
-                <input
-                    id="urlInput"
-                    type="search"
-                    placeholder="Channel"
-                    autofocus
-                    required
-                />
-                <button class="btn btn-primary" type="submit">🔍</button>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6" />
+    <meta property="og:url" content="https://stats.zonian.me/" />
+    <meta name="keywords" content="twitch, chat, emote, stats" />
+    <meta property="og:type" content="website" />
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <meta name="application-name" content="Emotes Stats" />
+    <link rel="stylesheet" href="/static/main.css" />
+    <link rel="stylesheet" href="/static/bootstrap.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img class="navbarImage" src="/static/DankG.png" title="EmoteStats" alt="EmoteStats" />Emote Stats</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+            aria-controls="navbarToggler" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/global">Global</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/faq">FAQ</a>
+                </li>
+            </ul>
+            <form id="Search" onsubmit="redirect(); return false" method="get" action="" class="d-flex" role="search">
+                <input id="channelInput" class="form-control me-2" type="search" placeholder="Channel" aria-label="Channel"
+                    style="border:none" autofocus required>
+                    <button class="btn btn-light" type="submit">🔍</button>
             </form>
-        </nav>
-    </body>
-    <script>
-        function redirect() {
-            window.location.href =
-                "/channel/" +
-                document.getElementById("urlInput").value.toLowerCase();
-        }
-    </script>
+        </div>
+    </div>
+</nav>
+<script>
+    function redirect() {
+        window.location.href =
+            "/channel/" + document.getElementById("channelInput").value.toLowerCase()}
+</script>
+
 </html>

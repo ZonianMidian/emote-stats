@@ -1,6 +1,6 @@
 {
     "name": "emote-stats",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "main": "index.js",
     "dependencies": {
         "ejs": "^3.1.8",
