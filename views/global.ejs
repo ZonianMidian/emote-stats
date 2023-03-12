@@ -40,7 +40,7 @@
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
                             <p class="emote_usage" id="twitch-<%= emote.name %>">
-                                <%= emote.usage.toLocaleString() %></p>
+                                <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
                     <% } %>
@@ -78,7 +78,7 @@
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
                             <p class="emote_usage" id="bttv-<%= emote.name %>">
-                                <%= emote.usage.toLocaleString() %></p>
+                                <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
                     <% } %>
@@ -116,7 +116,7 @@
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
                             <p class="emote_usage" id="ffz-<%= emote.name %>">
-                                <%= emote.usage.toLocaleString() %></p>
+                                <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
                     <% } %>
@@ -153,7 +153,7 @@
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
                             <p class="emote_usage" id="7tv-<%= emote.name %>">
-                                <%= emote.usage.toLocaleString() %></p>
+                                <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
                     <% } %>
@@ -211,9 +211,9 @@
         const emoteCount = document.getElementById(`${type}-${emote ?? key}`);
 
         if (emoteCount) {
-            const oldCount = parseInt(emoteCount.innerHTML.replace(/,/g, ""));
-            const newCount = oldCount + (count ?? amount);
-            emoteCount.innerHTML = newCount.toLocaleString();
+            const oldCount = parseInt(emoteCount.innerHTML.replace(/\.|'|,/g, ""));
+            const newCount = Number(oldCount) + Number(count ?? amount);
+            emoteCount.innerHTML = newCount.toLocaleString("en-US");
         }
     }
 </script>
