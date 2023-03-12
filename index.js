@@ -60,7 +60,7 @@ async function parseEmotes(emotes, extension) {
                     link: `https://cdn.7tv.app/emote/${emote.emote_id}/2x.webp`,
                     usage: (emote.count ?? emote.total_count) ?? 0,
                 };
-                emoteArray.push(emoteData);
+                if (emoteData.usage > 0) emoteArray.push(emoteData);
             });
 
             const sortedEmotes = emoteArray.sort((a, b) => b.usage - a.usage);
@@ -88,7 +88,7 @@ async function getChannel(channel) {
               };
 
     const { body: K_Stats, statusCode: K_Status } = await got(
-        `https://api.kattah.me/c/${channel}`,
+        `https://api.kattah.me/c/${channel}?limit=10000`,
         {
             throwHttpErrors: false,
             responseType: "json",
