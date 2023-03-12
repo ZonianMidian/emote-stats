@@ -39,7 +39,8 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                            <p class="emote_usage" id="twitch-<%= emote.name %>">
+                                <%= emote.usage.toLocaleString() %></p>
                         </div>
                     </div>
                     <% } %>
@@ -76,7 +77,8 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                            <p class="emote_usage" id="bttv-<%= emote.name %>">
+                                <%= emote.usage.toLocaleString() %></p>
                         </div>
                     </div>
                     <% } %>
@@ -113,7 +115,8 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                            <p class="emote_usage" id="ffz-<%= emote.name %>">
+                                <%= emote.usage.toLocaleString() %></p>
                         </div>
                     </div>
                     <% } %>
@@ -149,7 +152,8 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage"><%= emote.usage.toLocaleString() %></p>
+                            <p class="emote_usage" id="7tv-<%= emote.name %>">
+                                <%= emote.usage.toLocaleString() %></p>
                         </div>
                     </div>
                     <% } %>
@@ -159,3 +163,57 @@
         </div>
     </div>
 </body>
+
+<script>
+    const STV_Global = new WebSocket(`wss://global-ws.kattah.me`);
+    STV_Global.onmessage = (event) => {
+        const { type, data } = JSON.parse(event.data);
+        if (type == "global") {
+            UpdateEmote(data, '7tv');
+        }
+    };
+
+    const STV = new WebSocket(`wss://stats-ws.kattah.me`);
+    STV.onmessage = (event) => {
+        const { type, data } = JSON.parse(event.data);
+        switch (type) {
+            case "welcome": {
+                STV.send('{"type":"subscribe","channel":"all"}')
+                break;
+            }
+            case "emote": {
+                UpdateEmote(data, '7tv');
+                break;
+            }
+        }
+    };
+
+    const SE = new WebSocket(`wss://twitchstats-ws.streamelements.com`);
+    SE.onopen = () => SE.send('{"command":"subscribe","data":{"room":"twitchstats:global:stats"}}');
+    SE.onmessage = (event) => {
+        const { type, data } = JSON.parse(event.data);
+        switch (type) {
+            case "message": {
+                for (const array of data) {
+                    for (const emote of array) {
+                        if (emote.type == 'emotes') {
+                            UpdateEmote(emote, emote.provider);
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    };
+
+    function UpdateEmote(data, type) {
+        const { count, amount, emote, key } = data;
+        const emoteCount = document.getElementById(`${type}-${emote ?? key}`);
+
+        if (emoteCount) {
+            const oldCount = parseInt(emoteCount.innerHTML.replace(/,/g, ""));
+            const newCount = oldCount + (count ?? amount);
+            emoteCount.innerHTML = newCount.toLocaleString();
+        }
+    }
+</script>
