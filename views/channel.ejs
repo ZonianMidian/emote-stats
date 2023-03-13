@@ -37,9 +37,9 @@
                     />
                     <h3>Twitch</h3>
                 </div>
-                <div class="emotes" style="padding:10px">
+                <div class="emotes" id="twitch-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.Twitch.entries()) { %>
-                    <div class="row" id="<%= emote.id %>">
+                    <div class="row twitch" id="emote-twitch-<%= emote.name %>" data-name="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -75,9 +75,9 @@
                     <h3 class="largeName">BetterTTV</h3>
                     <h3 class="shortName">BTTV</h3>
                 </div>
-                <div class="emotes" style="padding:10px">
+                <div class="emotes" id="bttv-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.BTTV.entries()) { %>
-                    <div class="row" id="<%= emote.id %>">
+                    <div class="row bttv" id="emote-bttv-<%= emote.name %>" data-name="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -113,9 +113,9 @@
                     <h3 class="largeName">FrankerFaceZ</h3>
                     <h3 class="shortName">FFZ</h3>
                 </div>
-                <div class="emotes" style="padding:10px">
+                <div class="emotes" id="ffz-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.FFZ.entries()) { %>
-                    <div class="row" id="<%= emote.id %>">
+                    <div class="row ffz" id="emote-ffz-<%= emote.name %>" data-name="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -150,9 +150,9 @@
                     />
                     <h3>7TV</h3>
                 </div>
-                <div class="emotes" style="padding:10px">
+                <div class="emotes" id="7tv-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.STV.entries()) { %>
-                    <div class="row" id="<%= emote.id %>">
+                    <div class="row 7tv" id="emote-7tv-<%= emote.name %>" data-name="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -179,7 +179,7 @@
         </div>
     </div>
 </body>
-
+<script type="text/javascript" src="/static/index.js"></script>
 <script>
     const STV = new WebSocket(`wss://stats-ws.kattah.me`);
     STV.onmessage = (event) => {
@@ -212,15 +212,4 @@
             }
         }
     };
-
-    function UpdateEmote(data, type) {
-        const { count, amount, emote, key } = data;
-        const emoteCount = document.getElementById(`${type}-${emote ?? key}`);
-
-        if (emoteCount) {
-            const oldCount = parseInt(emoteCount.innerHTML.replace(/,/g, ""));
-            const newCount = Number(oldCount) + Number(count ?? amount);
-            emoteCount.innerHTML = newCount.toLocaleString("en-US");
-        }
-    }
 </script>
