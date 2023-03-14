@@ -161,7 +161,15 @@ app.get("/channel", (req, res) => {
     res.redirect("/global");
 });
 
-app.get("/channel/:name", async (req, res) => {
+app.get("/c", (req, res) => {
+    res.redirect("/global");
+});
+
+app.get("/channel/:name", (req, res) => {
+    res.redirect(`/c/${req.params.name}`);
+});
+
+app.get("/c/:name", async (req, res) => {
     const user = req.params.name.toLowerCase();
 
     if (user === "global") {
