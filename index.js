@@ -115,27 +115,17 @@ async function getGlobals() {
         }
     );
 
-    const { body: K_Stats_G } = await got(`https://api.kattah.me/global`, {
+    const { body: K_Stats } = await got(`https://api.kattah.me/top`, {
         throwHttpErrors: false,
         responseType: "json",
         headers: {"User-Agent": "Emote Stats by ZonianMidian"}
     });
-
-    const { body: K_Stats_T } = await got(`https://api.kattah.me/top`, {
-        throwHttpErrors: false,
-        responseType: "json",
-        headers: {"User-Agent": "Emote Stats by ZonianMidian"}
-    });
-
-    let sortedEmotes = []
-        .concat(K_Stats_G.emotes, K_Stats_T.emotes)
-        .sort((a, b) => b.total_count - a.total_count);
 
     return {
         BTTV: await parseEmotes(SE_Stats.bttvEmotes, "BTTV"),
         FFZ: await parseEmotes(SE_Stats.ffzEmotes, "FFZ"),
         Twitch: await parseEmotes(SE_Stats.twitchEmotes, "Twitch"),
-        STV: await parseEmotes(sortedEmotes, "7TV"),
+        STV: await parseEmotes(K_Stats.emotes, "7TV"),
     };
 }
 
