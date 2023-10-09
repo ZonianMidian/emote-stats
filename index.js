@@ -45,7 +45,7 @@ async function parseEmotes(emotes, extension) {
                     name: emote.emote,
                     id: emote.id,
                     link: emoteLink(emote.id, extension),
-                    usage: emote.amount,
+                    usage: emote.amount ?? 0,
                 };
                 emoteArray.push(emoteData);
             });
@@ -55,17 +55,15 @@ async function parseEmotes(emotes, extension) {
             const emoteArray = [];
             emotes.map((emote) => {
                 const emoteData = {
-                    name: emote.emote,
-                    alias: emote.emote_alias,
-                    id: emote.emote_id,
-                    link: `https://cdn.7tv.app/emote/${emote.emote_id}/2x.webp`,
-                    usage: (emote.count ?? emote.total_count) ?? 0,
+                    name: emote.name,
+                    alias: emote.alias,
+                    id: emote.id,
+                    link: `https://cdn.7tv.app/emote/${emote.id}/2x.webp`,
+                    usage: emote.count ?? 0,
                 };
                 if (emoteData.usage > 0) emoteArray.push(emoteData);
             });
-
-            const sortedEmotes = emoteArray.sort((a, b) => b.usage - a.usage);
-            return sortedEmotes;
+            return emoteArray;
         }
     }
 }
