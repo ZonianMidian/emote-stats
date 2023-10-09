@@ -165,36 +165,52 @@
 </body>
 <script type="text/javascript" src="/static/index.js"></script>
 <script>
-    const STV = new WebSocket(`wss://7tv-ws.markzynk.com`);
-    STV.onmessage = (event) => {
-        const { type, data } = JSON.parse(event.data);
-        switch (type) {
-            case "welcome": {
-                STV.send('{"type":"subscribe","channel":"all"}')
-                break;
+    function connectSTVWebSocket() {
+        const STV = new WebSocket(`wss://7tv-ws.markzynk.com`);
+        STV.onmessage = (event) => {
+            const { type, data } = JSON.parse(event.data);
+            switch (type) {
+                case "welcome": {
+                    STV.send('{"type":"subscribe","channel":"all"}')
+                    break;
+                }
+                case "emote": {
+                    UpdateEmote(data, '7tv');
+                    break;
+                }
             }
-            case "emote": {
-                UpdateEmote(data, '7tv');
-                break;
-            }
-        }
-    };
-
-    const SE = new WebSocket(`wss://twitchstats-ws.streamelements.com`);
-    SE.onopen = () => SE.send('{"command":"subscribe","data":{"room":"twitchstats:global:stats"}}');
-    SE.onmessage = (event) => {
-        const { type, data } = JSON.parse(event.data);
-        switch (type) {
-            case "message": {
-                for (const array of data) {
-                    for (const emote of array) {
-                        if (emote.type == 'emotes') {
-                            UpdateEmote(emote, emote.provider);
+        };
+    
+        STV.onclose = () => {
+            setTimeout(connectSTVWebSocket, 500);
+        };
+    }
+    
+    function connectSEWebSocket() {
+        const SE = new WebSocket(`wss://twitchstats-ws.streamelements.com`);
+        SE.onopen = () => 
+            SE.send('{"command":"subscribe","data":{"room":"twitchstats:global:stats"}}');
+        SE.onmessage = (event) => {
+            const { type, data } = JSON.parse(event.data);
+            switch (type) {
+                case "message": {
+                    for (const array of data) {
+                        for (const emote of array) {
+                            if (emote.type == 'emotes') {
+                                UpdateEmote(emote, emote.provider);
+                            }
                         }
                     }
+                    break;
                 }
-                break;
             }
-        }
-    };
+        };
+    
+        SE.onclose = () => {
+            setTimeout(connectSEWebSocket, 500);
+        };
+    }
+    
+    connectSTVWebSocket();
+    connectSEWebSocket();    
 </script>
