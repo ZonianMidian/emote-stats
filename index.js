@@ -16,7 +16,7 @@ async function getInfo(user) {
             headers: {"User-Agent": "Emote Stats by ZonianMidian"}
         }
     );
-    if (statusCode < 200 || statusCode > 299) return null;
+    if (statusCode < 200 || statusCode > 299 || !body.length) return null;
 
     const displayName =
         body[0].displayName.toLowerCase() === user ? body[0].displayName : user;
@@ -56,6 +56,7 @@ async function parseEmotes(emotes, extension) {
             emotes.map((emote) => {
                 const emoteData = {
                     name: emote.emote,
+                    alias: emote.emote_alias,
                     id: emote.emote_id,
                     link: `https://cdn.7tv.app/emote/${emote.emote_id}/2x.webp`,
                     usage: (emote.count ?? emote.total_count) ?? 0,
@@ -88,7 +89,7 @@ async function getChannel(channel) {
               };
 
     const { body: K_Stats, statusCode: K_Status } = await got(
-        `https://api.kattah.me/c/${channel}?limit=10000`,
+        `https://7tv.markzynk.com/c/${channel}`,
         {
             throwHttpErrors: false,
             responseType: "json",
@@ -115,7 +116,7 @@ async function getGlobals() {
         }
     );
 
-    const { body: K_Stats } = await got(`https://api.kattah.me/top`, {
+    const { body: K_Stats } = await got(`https://7tv.markzynk.com/top`, {
         throwHttpErrors: false,
         responseType: "json",
         headers: {"User-Agent": "Emote Stats by ZonianMidian"}

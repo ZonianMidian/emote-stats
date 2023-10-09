@@ -23,7 +23,7 @@
                 </div>
                 <div class="emotes" id="twitch-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.Twitch.entries()) { %>
-                    <div class="row twitch" id="emote-twitch-<%= emote.name %>" data-name="<%= emote.usage %>">
+                    <div class="row twitch" id="emote-twitch-<%= emote.id %>" data-count="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="twitch-<%= emote.name %>">
+                            <p class="emote_usage" id="twitch-<%= emote.id %>">
                                 <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="emotes" id="bttv-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.BTTV.entries()) { %>
-                    <div class="row bttv" id="emote-bttv-<%= emote.name %>" data-name="<%= emote.usage %>">
+                    <div class="row bttv" id="emote-bttv-<%= emote.id %>" data-count="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="bttv-<%= emote.name %>">
+                            <p class="emote_usage" id="bttv-<%= emote.id %>">
                                 <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="emotes" id="ffz-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.FFZ.entries()) { %>
-                    <div class="row ffz" id="emote-ffz-<%= emote.name %>" data-name="<%= emote.usage %>">
+                    <div class="row ffz" id="emote-ffz-<%= emote.id %>" data-count="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="ffz-<%= emote.name %>">
+                            <p class="emote_usage" id="ffz-<%= emote.id %>">
                                 <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="emotes" id="7tv-emotes" style="padding:10px">
                     <% for (const [i, emote] of data.STV.entries()) { %>
-                    <div class="row 7tv" id="emote-7tv-<%= emote.name %>" data-name="<%= emote.usage %>">
+                    <div class="row 7tv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
                         <div class="col-2 flex-center countNumber">
                             <p class="count flex-center"><%= i+1 %></p>
                         </div>
@@ -152,7 +152,7 @@
                         </div>
                         <div class="col-5">
                             <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="7tv-<%= emote.name %>">
+                            <p class="emote_usage" id="7tv-<%= emote.id %>">
                                 <%= emote.usage.toLocaleString("en-US") %></p>
                         </div>
                     </div>
@@ -165,15 +165,7 @@
 </body>
 <script type="text/javascript" src="/static/index.js"></script>
 <script>
-    const STV_Global = new WebSocket(`wss://global-ws.kattah.me`);
-    STV_Global.onmessage = (event) => {
-        const { type, data } = JSON.parse(event.data);
-        if (type == "global") {
-            UpdateEmote(data, '7tv');
-        }
-    };
-
-    const STV = new WebSocket(`wss://stats-ws.kattah.me`);
+    const STV = new WebSocket(`wss://7tv-ws.markzynk.com`);
     STV.onmessage = (event) => {
         const { type, data } = JSON.parse(event.data);
         switch (type) {
