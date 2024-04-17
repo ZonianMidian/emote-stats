@@ -75,18 +75,18 @@ function emoteLink(id, extension) {
 }
 
 function reorderDivs(type) {
-    let divList = $(`.${type}`);
-    divList.sort((a, b) => $(b).data('count') - $(a).data('count'));
-
-    $(`#${type}-emotes`).html(divList);
+    let divList = document.querySelectorAll(`.${type}`);
+    divList = Array.from(divList).sort((a, b) => b.dataset.count - a.dataset.count);
 
     const emoteDiv = document.getElementById(`${type}-emotes`);
-    const divs = emoteDiv.querySelectorAll('div');
+    emoteDiv.innerHTML = '';
+
     let i = 1;
-    divs.forEach((div) => {
-        if (div.className == `row ${type}`) {
+    divList.forEach((div) => {
+        if (div.className === `row ${type}`) {
             const countNumber = div.querySelector('.countNumber');
-            countNumber.innerHTML = i;
+            countNumber.textContent = i;
+            emoteDiv.appendChild(div);
             i++;
         }
     });

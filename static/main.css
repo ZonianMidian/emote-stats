@@ -3,7 +3,7 @@
 }
 
 .navbar {
-    --bs-navbar-padding-y: 8px;
+    --bs-navbar-padding-y: 8px !important;
 }
 
 * {
@@ -123,6 +123,44 @@ div.emotes p.emote_usage {
 #container {
     display: flex;
     justify-content: center;
+}
+
+.form-control {
+    outline: none !important;
+    border: none !important;
+    background-color: #787878 !important;
+}
+
+.form-control:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.btn {
+    background-color: #787878 !important;
+    border: none !important;
+}
+
+.btn:hover {
+    background-color: #909f9f !important;
+    border: none !important;
+}
+
+.navbar-brand {
+    color: #909f9f !important;
+    font-weight: 700 !important;
+}
+
+.fa-magnifying-glass {
+    color: var(--bs-body-bg) !important;
+}
+
+.hoster {
+    font-weight: 700 !important;
+}
+
+a {
+    text-decoration: none !important;
 }
 
 @media only screen and (max-width: 1191px) {
