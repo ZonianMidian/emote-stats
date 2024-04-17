@@ -3,9 +3,9 @@ function UpdateEmote(data, type) {
     const emoteCount = document.getElementById(`${type}-${id}`);
 
     if (emoteCount) {
-        const oldCount = parseInt(emoteCount.innerHTML.replace(/\.|'|,/g, ""), 10);
+        const oldCount = parseInt(emoteCount.innerHTML.replace(/\.|'|,/g, ''), 10);
         const newCount = oldCount + (count || amount);
-        emoteCount.innerHTML = newCount.toLocaleString("en-US");
+        emoteCount.innerHTML = newCount.toLocaleString('en-US');
 
         const emoteDiv = document.getElementById(`emote-${type}-${id}`);
         emoteDiv.dataset.count = newCount;
@@ -61,17 +61,16 @@ function UpdateEmote(data, type) {
     }
 }
 
-
 function emoteLink(id, extension) {
     switch (extension) {
-        case "bttv":
+        case 'bttv':
             return `https://cdn.betterttv.net/emote/${id}/2x`;
-        case "ffz":
+        case 'ffz':
             return `https://cdn.frankerfacez.com/emoticon/${id}/2`;
-        case "twitch":
+        case 'twitch':
             return `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/2.0`;
-        case "7tv":
-            return `https://cdn.7tv.app/emote/${id}/2x.webp`
+        case '7tv':
+            return `https://cdn.7tv.app/emote/${id}/2x.webp`;
     }
 }
 
@@ -81,11 +80,10 @@ function reorderDivs(type) {
 
     $(`#${type}-emotes`).html(divList);
 
-
     const emoteDiv = document.getElementById(`${type}-emotes`);
     const divs = emoteDiv.querySelectorAll('div');
     let i = 1;
-    divs.forEach(div => {
+    divs.forEach((div) => {
         if (div.className == `row ${type}`) {
             const countNumber = div.querySelector('.countNumber');
             countNumber.innerHTML = i;
