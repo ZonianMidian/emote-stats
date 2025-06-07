@@ -1,235 +1,235 @@
 <%- include('navbar') -%>
 <head>
-    <title>Stats | <%= user.name %></title>
-    <meta name="description" content="Emote Stats for <%= user.name %>" />
-    <meta property="og:title" content="Stats | <%= user.name %>" />
-    <meta property="og:image" content="<%= user.avatar %>" />
-    <meta
-        property="og:description"
-        content="Emote Stats for <%= user.name %>"
-    />
+	<title>Stats | <%= user.name %></title>
+	<meta name="description" content="Emote Stats for <%= user.name %>" />
+	<meta property="og:title" content="Stats | <%= user.name %>" />
+	<meta property="og:image" content="<%= user.avatar %>" />
+	<meta
+		property="og:description"
+		content="Emote Stats for <%= user.name %>"
+	/>
 </head>
 <body>
-    <div style="text-align: center; display: flex; justify-content: center; margin: 0.7rem 0 0;">
-        <div>
-            <img
-            src="<%= user.avatar %>"
-            draggable="false"
-            title="<%= user.name %>"
-            alt="<%= user.name %>"
-            style="height: 10em"
-            />
-        </div>
-        <div style="margin-left: 1rem; display: flex; align-items: center;">
-            <h1 class="title"><%= user.name %></h1>
-        </div>
-    </div>
-    <div class="container-fluid" id="container">
-        <div class="row">
-            <% if (data.Twitch) { %>
-            <div class="top col-md" id="twitch">
-                <div class="header">
-                    <img
-                        class="logo"
-                        src="/static/twitch.svg"
-                        title="Twitch"
-                        alt="Twitch"
-                        draggable="false"
-                    />
-                    <h3>Twitch</h3>
-                </div>
-                <div class="emotes" id="twitch-emotes" style="padding:10px">
-                    <% for (const [i, emote] of data.Twitch.entries()) { %>
-                    <div class="row twitch" id="emote-twitch-<%= emote.id %>" data-count="<%= emote.usage %>">
-                        <div class="col-2 flex-center countNumber">
-                            <p class="count flex-center"><%= i+1 %></p>
-                        </div>
-                        <div class="col-5 flex-center">
-                            <img
-                                loading="lazy"
-                                class="emote_image"
-                                src="<%= emote.link %>"
-                                title="<%= emote.name %>"
-                                alt="<%= emote.name %>"
-                                draggable="false"
-                                onerror="this.onerror=null;this.src='/static/unavailable.svg';"
-                            />
-                        </div>
-                        <div class="col-5">
-                            <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="twitch-<%= emote.id %>">
-                                <%= emote.usage.toLocaleString("en-US") %></p>
-                        </div>
-                    </div>
-                    <% } %>
-                </div>
-            </div>
-            <% } %> <% if (data.BTTV) { %>
-            <div class="top col-md" id="bttv">
-                <div class="header">
-                    <img
-                        class="logo"
-                        src="/static/bttv.svg"
-                        title="BetterTTV"
-                        alt="BetterTTV"
-                        draggable="false"
-                    />
-                    <h3 class="largeName">BetterTTV</h3>
-                    <h3 class="shortName">BTTV</h3>
-                </div>
-                <div class="emotes" id="bttv-emotes" style="padding:10px">
-                    <% for (const [i, emote] of data.BTTV.entries()) { %>
-                    <div class="row bttv" id="emote-bttv-<%= emote.id %>" data-count="<%= emote.usage %>">
-                        <div class="col-2 flex-center countNumber">
-                            <p class="count flex-center"><%= i+1 %></p>
-                        </div>
-                        <div class="col-5 flex-center">
-                            <img
-                                loading="lazy"
-                                class="emote_image"
-                                src="<%= emote.link %>"
-                                title="<%= emote.name %>"
-                                alt="<%= emote.name %>"
-                                draggable="false"
-                                onerror="this.onerror=null;this.src='/static/unavailable.svg';"
-                            />
-                        </div>
-                        <div class="col-5">
-                            <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="bttv-<%= emote.id %>">
-                                <%= emote.usage.toLocaleString("en-US") %></p>
-                        </div>
-                    </div>
-                    <% } %>
-                </div>
-            </div>
-            <% } %> <% if (data.FFZ) { %>
-            <div class="top col-md" id="ffz">
-                <div class="header">
-                    <img
-                        class="logo"
-                        src="/static/ffz.svg"
-                        title="FrankerFaceZ"
-                        alt="FrankerFaceZ"
-                        draggable="false"
-                    />
-                    <h3 class="largeName">FrankerFaceZ</h3>
-                    <h3 class="shortName">FFZ</h3>
-                </div>
-                <div class="emotes" id="ffz-emotes" style="padding:10px">
-                    <% for (const [i, emote] of data.FFZ.entries()) { %>
-                    <div class="row ffz" id="emote-ffz-<%= emote.id %>" data-count="<%= emote.usage %>">
-                        <div class="col-2 flex-center countNumber">
-                            <p class="count flex-center"><%= i+1 %></p>
-                        </div>
-                        <div class="col-5 flex-center">
-                            <img
-                                loading="lazy"
-                                class="emote_image"
-                                src="<%= emote.link %>"
-                                title="<%= emote.name %>"
-                                alt="<%= emote.name %>"
-                                draggable="false"
-                                onerror="this.onerror=null;this.src='/static/unavailable.svg';"
-                            />
-                        </div>
-                        <div class="col-5">
-                            <h3 class="emote_name"><%= emote.name %></h3>
-                            <p class="emote_usage" id="ffz-<%= emote.id %>">
-                                <%= emote.usage.toLocaleString("en-US") %></p>
-                        </div>
-                    </div>
-                    <% } %>
-                </div>
-            </div>
-            <% } %> <% if (data.STV) { %>
-            <div class="top col-md" id="stv">
-                <div class="header">
-                    <img
-                        class="logo"
-                        src="/static/7tv.svg"
-                        title="7TV"
-                        alt="7TV"
-                        draggable="false"
-                    />
-                    <h3>7TV</h3>
-                </div>
-                <div class="emotes" id="7tv-emotes" style="padding:10px">
-                    <% for (const [i, emote] of data.STV.entries()) { %>
-                    <div class="row 7tv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
-                        <div class="col-2 flex-center countNumber">
-                            <p class="count flex-center"><%= i+1 %></p>
-                        </div>
-                        <div class="col-5 flex-center">
-                            <img
-                                loading="lazy"
-                                class="emote_image"
-                                src="<%= emote.link %>"
-                                title="<%= emote.alias ?? emote.name %>"
-                                alt="<%= emote.alias ?? emote.name %>"
-                                draggable="false"
-                                onerror="this.onerror=null;this.src='/static/unavailable.svg';"
-                            />
-                        </div>
-                        <div class="col-5">
-                            <h3 class="emote_name"><%= emote.alias ?? emote.name %></h3>
-                            <p class="emote_usage" id="7tv-<%= emote.id %>">
-                                <%= emote.usage.toLocaleString("en-US") %></p>
-                        </div>
-                    </div>
-                    <% } %>
-                </div>
-            </div>
-            <% } %>
-        </div>
-    </div>
+	<div style="text-align: center; display: flex; justify-content: center; margin: 0.7rem 0 0;">
+		<div>
+			<img
+			src="<%= user.avatar %>"
+			draggable="false"
+			title="<%= user.name %>"
+			alt="<%= user.name %>"
+			style="height: 10em"
+			/>
+		</div>
+		<div style="margin-left: 1rem; display: flex; align-items: center;">
+			<h1 class="title"><%= user.name %></h1>
+		</div>
+	</div>
+	<div class="container-fluid" id="container">
+		<div class="row">
+			<% if (data.Twitch) { %>
+			<div class="top col-md" id="twitch">
+				<div class="header">
+					<img
+						class="logo"
+						src="/static/twitch.svg"
+						title="Twitch"
+						alt="Twitch"
+						draggable="false"
+					/>
+					<h3>Twitch</h3>
+				</div>
+				<div class="emotes" id="twitch-emotes" style="padding:10px">
+					<% for (const [i, emote] of data.Twitch.entries()) { %>
+					<div class="row twitch" id="emote-twitch-<%= emote.id %>" data-count="<%= emote.usage %>">
+						<div class="col-2 flex-center countNumber">
+							<p class="count flex-center"><%= i+1 %></p>
+						</div>
+						<div class="col-5 flex-center">
+							<img
+								loading="lazy"
+								class="emote_image"
+								src="<%= emote.link %>"
+								title="<%= emote.name %>"
+								alt="<%= emote.name %>"
+								draggable="false"
+								onerror="this.onerror=null;this.src='/static/unavailable.svg';"
+							/>
+						</div>
+						<div class="col-5">
+							<h3 class="emote_name"><%= emote.name %></h3>
+							<p class="emote_usage" id="twitch-<%= emote.id %>">
+								<%= emote.usage.toLocaleString("en-US") %></p>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<% } %> <% if (data.BTTV) { %>
+			<div class="top col-md" id="bttv">
+				<div class="header">
+					<img
+						class="logo"
+						src="/static/bttv.svg"
+						title="BetterTTV"
+						alt="BetterTTV"
+						draggable="false"
+					/>
+					<h3 class="largeName">BetterTTV</h3>
+					<h3 class="shortName">BTTV</h3>
+				</div>
+				<div class="emotes" id="bttv-emotes" style="padding:10px">
+					<% for (const [i, emote] of data.BTTV.entries()) { %>
+					<div class="row bttv" id="emote-bttv-<%= emote.id %>" data-count="<%= emote.usage %>">
+						<div class="col-2 flex-center countNumber">
+							<p class="count flex-center"><%= i+1 %></p>
+						</div>
+						<div class="col-5 flex-center">
+							<img
+								loading="lazy"
+								class="emote_image"
+								src="<%= emote.link %>"
+								title="<%= emote.name %>"
+								alt="<%= emote.name %>"
+								draggable="false"
+								onerror="this.onerror=null;this.src='/static/unavailable.svg';"
+							/>
+						</div>
+						<div class="col-5">
+							<h3 class="emote_name"><%= emote.name %></h3>
+							<p class="emote_usage" id="bttv-<%= emote.id %>">
+								<%= emote.usage.toLocaleString("en-US") %></p>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<% } %> <% if (data.FFZ) { %>
+			<div class="top col-md" id="ffz">
+				<div class="header">
+					<img
+						class="logo"
+						src="/static/ffz.svg"
+						title="FrankerFaceZ"
+						alt="FrankerFaceZ"
+						draggable="false"
+					/>
+					<h3 class="largeName">FrankerFaceZ</h3>
+					<h3 class="shortName">FFZ</h3>
+				</div>
+				<div class="emotes" id="ffz-emotes" style="padding:10px">
+					<% for (const [i, emote] of data.FFZ.entries()) { %>
+					<div class="row ffz" id="emote-ffz-<%= emote.id %>" data-count="<%= emote.usage %>">
+						<div class="col-2 flex-center countNumber">
+							<p class="count flex-center"><%= i+1 %></p>
+						</div>
+						<div class="col-5 flex-center">
+							<img
+								loading="lazy"
+								class="emote_image"
+								src="<%= emote.link %>"
+								title="<%= emote.name %>"
+								alt="<%= emote.name %>"
+								draggable="false"
+								onerror="this.onerror=null;this.src='/static/unavailable.svg';"
+							/>
+						</div>
+						<div class="col-5">
+							<h3 class="emote_name"><%= emote.name %></h3>
+							<p class="emote_usage" id="ffz-<%= emote.id %>">
+								<%= emote.usage.toLocaleString("en-US") %></p>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<% } %> <% if (data.STV) { %>
+			<div class="top col-md" id="stv">
+				<div class="header">
+					<img
+						class="logo"
+						src="/static/7tv.svg"
+						title="7TV"
+						alt="7TV"
+						draggable="false"
+					/>
+					<h3>7TV</h3>
+				</div>
+				<div class="emotes" id="7tv-emotes" style="padding:10px">
+					<% for (const [i, emote] of data.STV.entries()) { %>
+					<div class="row 7tv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
+						<div class="col-2 flex-center countNumber">
+							<p class="count flex-center"><%= i+1 %></p>
+						</div>
+						<div class="col-5 flex-center">
+							<img
+								loading="lazy"
+								class="emote_image"
+								src="<%= emote.link %>"
+								title="<%= emote.alias ?? emote.name %>"
+								alt="<%= emote.alias ?? emote.name %>"
+								draggable="false"
+								onerror="this.onerror=null;this.src='/static/unavailable.svg';"
+							/>
+						</div>
+						<div class="col-5">
+							<h3 class="emote_name"><%= emote.alias ?? emote.name %></h3>
+							<p class="emote_usage" id="7tv-<%= emote.id %>">
+								<%= emote.usage.toLocaleString("en-US") %></p>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</div>
 </body>
 <script type="text/javascript" src="/static/index.js"></script>
 <script>
-    function connectSTVWebSocket() {
-        const STV = new WebSocket(`wss://7tv-ws.markzynk.com`);
-        STV.onmessage = (event) => {
-            const { type, data } = JSON.parse(event.data);
-            switch (type) {
-                case "welcome": {
-                    STV.send('{"type":"subscribe","channel":"<%= user.id %>"}')
-                    break;
-                }
-                case "emote": {
-                    UpdateEmote(data, '7tv');
-                    break;
-                }
-            }
-        };
-    
-        STV.onclose = () => {
-            setTimeout(connectSTVWebSocket, 500);
-        };
-    }
-    
-    function connectSEWebSocket() {
-        const SE = new WebSocket(`wss://twitchstats-ws.streamelements.com`);
-        SE.onopen = () => 
-            SE.send('{"command":"subscribe","data":{"room":"twitchstats:<%= user.name.toLowerCase() %>:stats"}}');
-        SE.onmessage = (event) => {
-            const { type, data } = JSON.parse(event.data);
-            switch (type) {
-                case "message": {
-                    for (const emote of data) {
-                        if (emote.type == 'emotes') {
-                            UpdateEmote(emote, emote.provider);
-                        }
-                    }
-                    break;
-                }
-            }
-        };
-    
-        SE.onclose = () => {
-            setTimeout(connectSEWebSocket, 500);
-        };
-    }
-    
-    connectSTVWebSocket();
-    connectSEWebSocket();    
+	function connectSTVWebSocket() {
+		const STV = new WebSocket(`wss://7tv-ws.markzynk.com`);
+		STV.onmessage = (event) => {
+			const { type, data } = JSON.parse(event.data);
+			switch (type) {
+				case "welcome": {
+					STV.send('{"type":"subscribe","channel":"<%= user.id %>"}')
+					break;
+				}
+				case "emote": {
+					UpdateEmote(data, '7tv');
+					break;
+				}
+			}
+		};
+	
+		STV.onclose = () => {
+			setTimeout(connectSTVWebSocket, 500);
+		};
+	}
+	
+	function connectSEWebSocket() {
+		const SE = new WebSocket(`wss://twitchstats-ws.streamelements.com`);
+		SE.onopen = () => 
+			SE.send('{"command":"subscribe","data":{"room":"twitchstats:<%= user.name.toLowerCase() %>:stats"}}');
+		SE.onmessage = (event) => {
+			const { type, data } = JSON.parse(event.data);
+			switch (type) {
+				case "message": {
+					for (const emote of data) {
+						if (emote.type == 'emotes') {
+							UpdateEmote(emote, emote.provider);
+						}
+					}
+					break;
+				}
+			}
+		};
+	
+		SE.onclose = () => {
+			setTimeout(connectSEWebSocket, 500);
+		};
+	}
+	
+	connectSTVWebSocket();
+	connectSEWebSocket();    
 </script>
