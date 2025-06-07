@@ -38,8 +38,8 @@ async function parseEmotes(emotes, extension) {
 			const emoteArray = [];
 			emotes.map((emote) => {
 				const emoteData = {
-					name: emote.emote,
 					id: emote.id,
+					name: emote.emote,
 					link: emoteLink(emote.id, extension),
 					usage: emote.amount ?? 0
 				};
@@ -50,18 +50,41 @@ async function parseEmotes(emotes, extension) {
 		case '7TV': {
 			const emoteArray = [];
 			emotes.map((emote) => {
+				const id = emote.id && emote.id.length === 24 ? objectIdToUlid(emote.id) : emote.id;
+
 				const emoteData = {
-					name: emote.name,
-					alias: emote.alias,
-					id: emote.id,
-					link: `https://cdn.7tv.app/emote/${emote.id}/2x.webp`,
-					usage: emote.count ?? 0
+					id,
+					name: emote.name ?? emote.emote,
+					alias: emote.alias ?? null,
+					link: `https://cdn.7tv.app/emote/${id}/2x.webp`,
+					usage: emote.count ?? emote.amount ?? 0
 				};
 				if (emoteData.usage > 0) emoteArray.push(emoteData);
 			});
 			return emoteArray;
 		}
 	}
+}
+
+function objectIdToUlid(objectId) {
+	const id = BigInt(`0x${objectId}`);
+
+	const timestamp = (id >> 64n) * 1000n;
+	const random = id & 0xffffffffffffffffn;
+
+	return encodeULIDPart(timestamp, 10) + encodeULIDPart(random, 16);
+}
+
+function encodeULIDPart(part, size) {
+	const alphabet = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+	let result = '';
+
+	for (let i = 0; i < size; i++) {
+		result = alphabet[Number(part % 32n)] + result;
+		part /= 32n;
+	}
+
+	return result;
 }
 
 async function getChannel(channel) {
@@ -75,14 +98,15 @@ async function getChannel(channel) {
 	);
 	const SE =
 		SE_Status < 200 || SE_Status > 299
-			? null
+			? {}
 			: {
 					BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
 					FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
-					Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch')
+					Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
+					STV: await parseEmotes(SE_Stats.sevenTVEmotes, '7TV')
 				};
 
-	const { body: K_Stats, statusCode: K_Status } = await got(
+	const { body: MZ_Stats, statusCode: MZ_Status } = await got(
 		`https://7tv.markzynk.com/c/${channel}`,
 		{
 			throwHttpErrors: false,
@@ -90,12 +114,62 @@ async function getChannel(channel) {
 			headers: { 'User-Agent': 'Emote Stats by ZonianMidian' }
 		}
 	);
-	const K =
-		K_Status < 200 || K_Status > 299 ? null : { STV: await parseEmotes(K_Stats.emotes, '7TV') };
+	const MZ =
+		MZ_Status < 200 || MZ_Status > 299
+			? {}
+			: { STV: await parseEmotes(MZ_Stats.emotes, '7TV') };
 
-	if (!SE) return K;
-	if (!SE && !K) return null;
-	return Object.assign(SE, K);
+	const sources = [SE, MZ].filter((obj) => Object.keys(obj).length > 0);
+
+	if (sources.length === 0) return {};
+
+	const allKeys = Array.from(new Set(sources.flatMap((obj) => Object.keys(obj))));
+	let onlySE = false;
+	const result = {};
+
+	for (const key of allKeys) {
+		const arrays = sources.map((obj) => obj[key]).filter(Boolean);
+
+		if (arrays.length === 0) continue;
+		if (arrays.length > 1) onlySE = true;
+
+		const byId = {};
+
+		for (const arr of arrays) {
+			for (const emote of arr) {
+				if (!byId[emote.id]) {
+					byId[emote.id] = { ...emote };
+				} else {
+					const existing = byId[emote.id];
+					if (emote.alias != null) {
+						byId[emote.id] = {
+							...existing,
+							...emote,
+							usage: Math.max(existing.usage, emote.usage)
+						};
+					} else {
+						byId[emote.id] = {
+							...emote,
+							...existing,
+							usage: Math.max(existing.usage, emote.usage)
+						};
+					}
+				}
+			}
+		}
+		result[key] = Object.values(byId);
+	}
+
+	if (Object.keys(result).length === 0) return {};
+
+	for (const key in result) {
+		if (Array.isArray(result[key])) {
+			result[key].sort((a, b) => (b.usage ?? 0) - (a.usage ?? 0));
+		}
+	}
+
+	result.onlySE = onlySE;
+	return result;
 }
 
 async function getGlobals() {

@@ -137,9 +137,9 @@
 					/>
 					<h3>7TV</h3>
 				</div>
-				<div class="emotes" id="7tv-emotes" style="padding:10px">
+				<div class="emotes" id="stv-emotes" style="padding:10px">
 					<% for (const [i, emote] of data.STV.entries()) { %>
-					<div class="row 7tv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
+					<div class="row stv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
 							<p class="count flex-center"><%= i+1 %></p>
 						</div>
@@ -169,31 +169,10 @@
 </body>
 <script type="text/javascript" src="/static/index.js"></script>
 <script>
-	function connectSTVWebSocket() {
-		const STV = new WebSocket(`wss://7tv-ws.markzynk.com`);
-		STV.onmessage = (event) => {
-			const { type, data } = JSON.parse(event.data);
-			switch (type) {
-				case "welcome": {
-					STV.send('{"type":"subscribe","channel":"all"}')
-					break;
-				}
-				case "emote": {
-					UpdateEmote(data, '7tv');
-					break;
-				}
-			}
-		};
-	
-		STV.onclose = () => {
-			setTimeout(connectSTVWebSocket, 500);
-		};
-	}
-	
-	function connectSEWebSocket() {
-		const SE = new WebSocket(`wss://twitchstats-ws.streamelements.com`);
+	function connectSE_WebSocket() {
+		const SE = new WebSocket(`wss://astro.streamelements.com`);
 		SE.onopen = () => 
-			SE.send('{"command":"subscribe","data":{"room":"twitchstats:global:stats"}}');
+			SE.send('{"type":"subscribe","data":{"topic":"channel.chatstats","room":"global"}}');
 		SE.onmessage = (event) => {
 			const { type, data } = JSON.parse(event.data);
 			switch (type) {
@@ -211,10 +190,31 @@
 		};
 	
 		SE.onclose = () => {
-			setTimeout(connectSEWebSocket, 500);
+			setTimeout(connectSE_WebSocket, 500);
 		};
 	}
+
+	// function connectMZ_WebSocket() {
+	// 	const MZ = new WebSocket(`wss://7tv-ws.markzynk.com`);
+	// 	MZ.onmessage = (event) => {
+	// 		const { type, data } = JSON.parse(event.data);
+	// 		switch (type) {
+	// 			case "welcome": {
+	// 				MZ.send('{"type":"subscribe","channel":"all"}')
+	// 				break;
+	// 			}
+	// 			case "emote": {
+	// 				UpdateEmote(data, '7tv');
+	// 				break;
+	// 			}
+	// 		}
+	// 	};
+	// 
+	// 	MZ.onclose = () => {
+	// 		setTimeout(connectMZ_WebSocket, 500);
+	// 	};
+	// }
 	
-	connectSTVWebSocket();
-	connectSEWebSocket();    
+	connectSE_WebSocket();    
+	// connectMZ_WebSocket();
 </script>

@@ -75,6 +75,8 @@ function emoteLink(id, extension) {
 }
 
 function reorderDivs(type) {
+	type = type.toLowerCase().replace('7tv', 'stv');
+
 	let divList = document.querySelectorAll(`.${type}`);
 	divList = Array.from(divList).sort((a, b) => b.dataset.count - a.dataset.count);
 
