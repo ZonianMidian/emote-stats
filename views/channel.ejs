@@ -4,23 +4,14 @@
 	<meta name="description" content="Emote Stats for <%= user.name %>" />
 	<meta property="og:title" content="Stats | <%= user.name %>" />
 	<meta property="og:image" content="<%= user.avatar %>" />
-	<meta
-		property="og:description"
-		content="Emote Stats for <%= user.name %>"
-	/>
+	<meta property="og:description" content="Emote Stats for <%= user.name %>" />
 </head>
 <body>
-	<div style="text-align: center; display: flex; justify-content: center; margin: 0.7rem 0 0;">
+	<div style="text-align: center; display: flex; justify-content: center; margin: 0.7rem 0 0">
 		<div>
-			<img
-			src="<%= user.avatar %>"
-			draggable="false"
-			title="<%= user.name %>"
-			alt="<%= user.name %>"
-			style="height: 10em"
-			/>
+			<img src="<%= user.avatar %>" draggable="false" title="<%= user.name %>" alt="<%= user.name %>" style="height: 10em" />
 		</div>
-		<div style="margin-left: 1rem; display: flex; align-items: center;">
+		<div style="margin-left: 1rem; display: flex; align-items: center">
 			<h1 class="title"><%= user.name %></h1>
 		</div>
 	</div>
@@ -29,16 +20,10 @@
 			<% if (data.Twitch) { %>
 			<div class="top col-md" id="twitch">
 				<div class="header">
-					<img
-						class="logo"
-						src="/static/twitch.svg"
-						title="Twitch"
-						alt="Twitch"
-						draggable="false"
-					/>
+					<img class="logo" src="/static/twitch.svg" title="Twitch" alt="Twitch" draggable="false" />
 					<h3>Twitch</h3>
 				</div>
-				<div class="emotes" id="twitch-emotes" style="padding:10px">
+				<div class="emotes" id="twitch-emotes" style="padding: 10px">
 					<% for (const [i, emote] of data.Twitch.entries()) { %>
 					<div class="row twitch" id="emote-twitch-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
@@ -52,32 +37,25 @@
 								title="<%= emote.name %>"
 								alt="<%= emote.name %>"
 								draggable="false"
-								onerror="this.onerror=null;this.src='/static/unavailable.png';"
-							/>
+								onerror="this.onerror=null;this.src='/static/unavailable.png';" />
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="twitch-<%= emote.id %>">
-								<%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="twitch-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
 				</div>
 			</div>
-			<% } %> <% if (data.BTTV) { %>
+			<% } %>
+			<% if (data.BTTV) { %>
 			<div class="top col-md" id="bttv">
 				<div class="header">
-					<img
-						class="logo"
-						src="/static/bttv.svg"
-						title="BetterTTV"
-						alt="BetterTTV"
-						draggable="false"
-					/>
+					<img class="logo" src="/static/bttv.svg" title="BetterTTV" alt="BetterTTV" draggable="false" />
 					<h3 class="largeName">BetterTTV</h3>
 					<h3 class="shortName">BTTV</h3>
 				</div>
-				<div class="emotes" id="bttv-emotes" style="padding:10px">
+				<div class="emotes" id="bttv-emotes" style="padding: 10px">
 					<% for (const [i, emote] of data.BTTV.entries()) { %>
 					<div class="row bttv" id="emote-bttv-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
@@ -91,32 +69,25 @@
 								title="<%= emote.name %>"
 								alt="<%= emote.name %>"
 								draggable="false"
-								onerror="this.onerror=null;this.src='/static/unavailable.png';"
-							/>
+								onerror="this.onerror=null;this.src='/static/unavailable.png';" />
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="bttv-<%= emote.id %>">
-								<%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="bttv-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
 				</div>
 			</div>
-			<% } %> <% if (data.FFZ) { %>
+			<% } %>
+			<% if (data.FFZ) { %>
 			<div class="top col-md" id="ffz">
 				<div class="header">
-					<img
-						class="logo"
-						src="/static/ffz.svg"
-						title="FrankerFaceZ"
-						alt="FrankerFaceZ"
-						draggable="false"
-					/>
+					<img class="logo" src="/static/ffz.svg" title="FrankerFaceZ" alt="FrankerFaceZ" draggable="false" />
 					<h3 class="largeName">FrankerFaceZ</h3>
 					<h3 class="shortName">FFZ</h3>
 				</div>
-				<div class="emotes" id="ffz-emotes" style="padding:10px">
+				<div class="emotes" id="ffz-emotes" style="padding: 10px">
 					<% for (const [i, emote] of data.FFZ.entries()) { %>
 					<div class="row ffz" id="emote-ffz-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
@@ -130,31 +101,24 @@
 								title="<%= emote.name %>"
 								alt="<%= emote.name %>"
 								draggable="false"
-								onerror="this.onerror=null;this.src='/static/unavailable.png';"
-							/>
+								onerror="this.onerror=null;this.src='/static/unavailable.png';" />
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="ffz-<%= emote.id %>">
-								<%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="ffz-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
 				</div>
 			</div>
-			<% } %> <% if (data.STV) { %>
+			<% } %>
+			<% if (data.STV) { %>
 			<div class="top col-md" id="stv">
 				<div class="header">
-					<img
-						class="logo"
-						src="/static/7tv.svg"
-						title="7TV"
-						alt="7TV"
-						draggable="false"
-					/>
+					<img class="logo" src="/static/7tv.svg" title="7TV" alt="7TV" draggable="false" />
 					<h3>7TV</h3>
 				</div>
-				<div class="emotes" id="stv-emotes" style="padding:10px">
+				<div class="emotes" id="stv-emotes" style="padding: 10px">
 					<% for (const [i, emote] of data.STV.entries()) { %>
 					<div class="row stv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
@@ -168,13 +132,11 @@
 								title="<%= emote.alias ?? emote.name %>"
 								alt="<%= emote.alias ?? emote.name %>"
 								draggable="false"
-								onerror="this.onerror=null;this.src='/static/unavailable.png';"
-							/>
+								onerror="this.onerror=null;this.src='/static/unavailable.png';" />
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.alias ?? emote.name %></h3>
-							<p class="emote_usage" id="7tv-<%= emote.id %>">
-								<%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="7tv-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
@@ -188,12 +150,11 @@
 <script>
 	function connectSE_WebSocket() {
 		const SE = new WebSocket(`wss://astro.streamelements.com`);
-		SE.onopen = () => 
-			SE.send('{"type":"subscribe","data":{"topic":"channel.chatstats","room":"<%= user.name.toLowerCase() %>"}}');
+		SE.onopen = () => SE.send('{"type":"subscribe","data":{"topic":"channel.chatstats","room":"<%= user.name.toLowerCase() %>"}}');
 		SE.onmessage = (event) => {
 			const { type, data } = JSON.parse(event.data);
 			switch (type) {
-				case "message": {
+				case 'message': {
 					for (const emote of data) {
 						if (emote.type == 'emotes') {
 							UpdateEmote(emote, emote.provider);
@@ -203,7 +164,7 @@
 				}
 			}
 		};
-	
+
 		SE.onclose = () => {
 			setTimeout(connectSE_WebSocket, 500);
 		};
@@ -214,17 +175,17 @@
 		MZ.onmessage = (event) => {
 			const { type, data } = JSON.parse(event.data);
 			switch (type) {
-				case "welcome": {
-					MZ.send('{"type":"subscribe","channel":"<%= user.id %>"}')
+				case 'welcome': {
+					MZ.send('{"type":"subscribe","channel":"<%= user.id %>"}');
 					break;
 				}
-				case "emote": {
+				case 'emote': {
 					UpdateEmote(data, '7tv');
 					break;
 				}
 			}
 		};
-	
+
 		MZ.onclose = () => {
 			setTimeout(connectMZ_WebSocket, 500);
 		};
@@ -233,5 +194,5 @@
 	connectSE_WebSocket();
 	if (!('<%= data.onlySE %>' === 'true')) {
 		connectMZ_WebSocket();
-	}    
+	}
 </script>

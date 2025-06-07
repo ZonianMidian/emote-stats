@@ -1,54 +1,50 @@
 <%- include('navbar') -%>
 
-	<head>
-		<title>Emote Stats</title>
-		<meta name="description" content="Emote Stats for Twitch, FFZ, BTTV and 7TV" />
-		<meta property="og:title" content="Emote Stats" />
-		<meta property="og:image" content="/static/DankG.png" />
-		<meta property="og:description" content="Emote Stats for Twitch, FFZ, BTTV and 7TV" />
-	</head>
+<head>
+	<title>Emote Stats</title>
+	<meta name="description" content="Emote Stats for Twitch, FFZ, BTTV and 7TV" />
+	<meta property="og:title" content="Emote Stats" />
+	<meta property="og:image" content="/static/DankG.png" />
+	<meta property="og:description" content="Emote Stats for Twitch, FFZ, BTTV and 7TV" />
+</head>
 
-	<body>
-		<div class="text-center margin">
-			<img src="/static/DankG.gif" alt="DankG" />
-			<blockquote class="blockquote margin">
-				<h1>About</h1>
-				<p class="col-md-4 offset-md-4">
-					This website does not store information of any kind, it only
-					intends to collect public information and statistics about the
-					use of emotes, including third-party providers on Twitch, and
-					display them to visitors in a nice and clean way.
-				</p>
-			</blockquote>
-			<blockquote class="blockquote margin">
-				<h1>Usage</h1>
-				<p class="col-md-4 offset-md-4">
-					Go to the
-					<a target="_BLANK" href="/global" style="text-decoration: none" data-umami-event="stats-global">global</a>
-					section to see the global emote stats, or type a Twitch user in
-					the form on the top right to see the stats for that specific
-					channel.
-				</p>
-			</blockquote>
-			<blockquote class="blockquote margin">
-				<h1>Data & API</h1>
-				<p class="col-md-4 offset-md-4">
-					The data is currently obtained from the following providers:
-				</p>
-				<ul style="list-style: none;">
-					<li>
-						<a target="_BLANK" href="https://api.streamelements.com/kappa/v2/chatstats/ZonianMidian/stats"
-							style="text-decoration: none"
-							data-umami-event="api-streamelements">
-							StreamElements: Twitch, BTTV, FFZ and 7TV</a>
-					</li>
-					<li>
-						<a target="_BLANK" href="https://7tv.markzynk.com/c/ZonianMidian"
-							style="text-decoration: none"
-							data-umami-event="api-markzynk">
-							MarkZynk: 7TV</a>
-					</li>
-				</ul>
-			</blockquote>
-		</div>
-	</body>
+<body>
+	<div class="text-center margin">
+		<img src="/static/DankG.gif" alt="DankG" />
+		<blockquote class="blockquote margin">
+			<h1>About</h1>
+			<p class="col-md-4 offset-md-4">
+				This website does not store information of any kind, it only intends to collect public information and statistics about the use of
+				emotes, including third-party providers on Twitch, and display them to visitors in a nice and clean way.
+			</p>
+		</blockquote>
+		<blockquote class="blockquote margin">
+			<h1>Usage</h1>
+			<p class="col-md-4 offset-md-4">
+				Go to the
+				<a target="_BLANK" href="/global" style="text-decoration: none" data-umami-event="stats-global">global</a>
+				section to see the global emote stats, or type a Twitch user in the form on the top right to see the stats for that specific channel.
+			</p>
+		</blockquote>
+		<blockquote class="blockquote margin">
+			<h1>Data & API</h1>
+			<p class="col-md-4 offset-md-4">The data is currently obtained from the following providers:</p>
+			<ul style="list-style: none">
+				<li>
+					<a
+						target="_BLANK"
+						href="https://api.streamelements.com/kappa/v2/chatstats/ZonianMidian/stats"
+						style="text-decoration: none"
+						data-umami-event="api-streamelements">
+						StreamElements: Twitch, BTTV, FFZ and 7TV</a
+					>
+				</li>
+				<li>
+					<a target="_BLANK" href="https://7tv.markzynk.com/c/ZonianMidian" style="text-decoration: none" data-umami-event="api-markzynk">
+						MarkZynk: 7TV</a
+					>
+				</li>
+			</ul>
+		</blockquote>
+	</div>
+</body>

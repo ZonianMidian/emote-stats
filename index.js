@@ -11,7 +11,7 @@ async function getInfo(user) {
 	const { body, statusCode } = await got(`https://api.ivr.fi/v2/twitch/user?login=${user}`, {
 		throwHttpErrors: false,
 		responseType: 'json',
-		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' }
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
 	});
 	if (statusCode < 200 || statusCode > 299 || !body.length) return null;
 
@@ -41,7 +41,7 @@ async function parseEmotes(emotes, extension) {
 					id: emote.id,
 					name: emote.emote,
 					link: emoteLink(emote.id, extension),
-					usage: emote.amount ?? 0
+					usage: emote.amount ?? 0,
 				};
 				emoteArray.push(emoteData);
 			});
@@ -57,7 +57,7 @@ async function parseEmotes(emotes, extension) {
 					name: emote.name ?? emote.emote,
 					alias: emote.alias ?? null,
 					link: `https://cdn.7tv.app/emote/${id}/2x.webp`,
-					usage: emote.count ?? emote.amount ?? 0
+					usage: emote.count ?? emote.amount ?? 0,
 				};
 				if (emoteData.usage > 0) emoteArray.push(emoteData);
 			});
@@ -88,14 +88,11 @@ function encodeULIDPart(part, size) {
 }
 
 async function getChannel(channel) {
-	const { body: SE_Stats, statusCode: SE_Status } = await got(
-		`https://api.streamelements.com/kappa/v2/chatstats/${channel}/stats`,
-		{
-			throwHttpErrors: false,
-			responseType: 'json',
-			headers: { 'User-Agent': 'Emote Stats by ZonianMidian' }
-		}
-	);
+	const { body: SE_Stats, statusCode: SE_Status } = await got(`https://api.streamelements.com/kappa/v2/chatstats/${channel}/stats`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
+	});
 	const SE =
 		SE_Status < 200 || SE_Status > 299
 			? {}
@@ -103,21 +100,15 @@ async function getChannel(channel) {
 					BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
 					FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
 					Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
-					STV: await parseEmotes(SE_Stats.sevenTVEmotes, '7TV')
+					STV: await parseEmotes(SE_Stats.sevenTVEmotes, '7TV'),
 				};
 
-	const { body: MZ_Stats, statusCode: MZ_Status } = await got(
-		`https://7tv.markzynk.com/c/${channel}`,
-		{
-			throwHttpErrors: false,
-			responseType: 'json',
-			headers: { 'User-Agent': 'Emote Stats by ZonianMidian' }
-		}
-	);
-	const MZ =
-		MZ_Status < 200 || MZ_Status > 299
-			? {}
-			: { STV: await parseEmotes(MZ_Stats.emotes, '7TV') };
+	const { body: MZ_Stats, statusCode: MZ_Status } = await got(`https://7tv.markzynk.com/c/${channel}`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
+	});
+	const MZ = MZ_Status < 200 || MZ_Status > 299 ? {} : { STV: await parseEmotes(MZ_Stats.emotes, '7TV') };
 
 	const sources = [SE, MZ].filter((obj) => Object.keys(obj).length > 0);
 
@@ -145,13 +136,13 @@ async function getChannel(channel) {
 						byId[emote.id] = {
 							...existing,
 							...emote,
-							usage: Math.max(existing.usage, emote.usage)
+							usage: Math.max(existing.usage, emote.usage),
 						};
 					} else {
 						byId[emote.id] = {
 							...emote,
 							...existing,
-							usage: Math.max(existing.usage, emote.usage)
+							usage: Math.max(existing.usage, emote.usage),
 						};
 					}
 				}
@@ -173,26 +164,23 @@ async function getChannel(channel) {
 }
 
 async function getGlobals() {
-	const { body: SE_Stats } = await got(
-		`https://api.streamelements.com/kappa/v2/chatstats/global/stats`,
-		{
-			throwHttpErrors: false,
-			responseType: 'json',
-			headers: { 'User-Agent': 'Emote Stats by ZonianMidian' }
-		}
-	);
+	const { body: SE_Stats } = await got(`https://api.streamelements.com/kappa/v2/chatstats/global/stats`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
+	});
 
 	const { body: K_Stats } = await got(`https://7tv.markzynk.com/top`, {
 		throwHttpErrors: false,
 		responseType: 'json',
-		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' }
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
 	});
 
 	return {
 		BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
 		FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
 		Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
-		STV: await parseEmotes(K_Stats.emotes, '7TV')
+		STV: await parseEmotes(K_Stats.emotes, '7TV'),
 	};
 }
 
@@ -233,8 +221,7 @@ app.get('/c/:name', async (req, res) => {
 		const globalData = await getGlobals();
 		res.render('global', { data: globalData });
 	} else {
-		if (!new RegExp(/^[a-z0-9]\w{0,24}$/i).exec(user))
-			return res.render('error', { error: 'Invalid username', code: '' });
+		if (!new RegExp(/^[a-z0-9]\w{0,24}$/i).exec(user)) return res.render('error', { error: 'Invalid username', code: '' });
 
 		const userInfo = await getInfo(user);
 		if (!userInfo) return res.render('error', { error: 'User not found', code: '' });
@@ -243,7 +230,7 @@ app.get('/c/:name', async (req, res) => {
 		if (!channelData)
 			return res.render('error', {
 				error: 'No statistics available',
-				code: ''
+				code: '',
 			});
 
 		res.render('channel', { data: channelData, user: userInfo });

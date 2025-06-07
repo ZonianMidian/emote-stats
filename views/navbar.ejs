@@ -1,64 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.6" />
+		<meta property="og:url" content="https://stats.zonian.dev/" />
+		<meta name="keywords" content="twitch, chat, emote, stats" />
+		<meta property="og:type" content="website" />
+		<link rel="shortcut icon" href="/static/favicon.ico" />
+		<meta name="application-name" content="Emotes Stats" />
+		<link rel="stylesheet" href="/static/main.css" />
+		<link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<script defer src="https://umami.supa.codes/script.js" data-website-id="08e92d5e-6d1d-41a8-83f0-0987de3bde91"></script>
+	</head>
 
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=0.6" />
-	<meta property="og:url" content="https://stats.zonian.dev/" />
-	<meta name="keywords" content="twitch, chat, emote, stats" />
-	<meta property="og:type" content="website" />
-	<link rel="shortcut icon" href="/static/favicon.ico" />
-	<meta name="application-name" content="Emotes Stats" />
-	<link rel="stylesheet" href="/static/main.css" />
-	<link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-	    <script
-        defer
-        src="https://umami.supa.codes/script.js"
-        data-website-id="08e92d5e-6d1d-41a8-83f0-0987de3bde91"
-    ></script>
-</head>
-
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="/" data-umami-event="navbar-home">
-			<img class="navbarImage" src="/static/DankG.png" title="EmoteStats" alt="EmoteStats" />Emote Stats</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
-			aria-controls="navbarToggler" aria-expanded="false">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarToggler">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link" href="/global" data-umami-event="navbar-global">Global</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/contact" data-umami-event="navbar-contact">Contact</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/faq" data-umami-event="navbar-faq">FAQ</a>
-				</li>
-			</ul>
-			<form id="Search" onsubmit="redirect(); return false" method="get" action="" class="d-flex" role="search">
-				<input id="channelInput" class="form-control me-2" type="search" placeholder="Channel" aria-label="Channel"
-					style="border:none" autofocus required>
+	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/" data-umami-event="navbar-home">
+				<img class="navbarImage" src="/static/DankG.png" title="EmoteStats" alt="EmoteStats" />Emote Stats</a
+			>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarToggler"
+				aria-controls="navbarToggler"
+				aria-expanded="false">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarToggler">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="/global" data-umami-event="navbar-global">Global</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/contact" data-umami-event="navbar-contact">Contact</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/faq" data-umami-event="navbar-faq">FAQ</a>
+					</li>
+				</ul>
+				<form id="Search" onsubmit="redirect(); return false" method="get" action="" class="d-flex" role="search">
+					<input
+						id="channelInput"
+						class="form-control me-2"
+						type="search"
+						placeholder="Channel"
+						aria-label="Channel"
+						style="border: none"
+						autofocus
+						required />
 					<button class="btn btn-light" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
-</nav>
-<script>
-	function redirect() {
-		const channel = document.getElementById("channelInput").value.trim().toLowerCase();
+	</nav>
+	<script>
+		function redirect() {
+			const channel = document.getElementById('channelInput').value.trim().toLowerCase();
 
-		if (window.umami) {
+			if (window.umami) {
 				window.umami.track('search', {
 					channel: channel,
 				});
 			}
 
-		window.location.href = "/c/" + channel
-	}
-</script>
-
+			window.location.href = '/c/' + channel;
+		}
+	</script>
 </html>
