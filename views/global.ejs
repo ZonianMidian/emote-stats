@@ -11,14 +11,14 @@
 	<div class="container-fluid" id="container">
 		<div class="row">
 			<% if (data.Twitch) { %>
-			<div class="top col-md" id="twitch">
+			<div class="top col-md" id="col-twitch">
 				<div class="header">
 					<img class="logo" src="/static/twitch.svg" alt="Twitch" draggable="false" />
 					<h3>Twitch</h3>
 				</div>
-				<div class="emotes" id="twitch-emotes" style="padding: 10px">
+				<div class="emotes" id="emotes-twitch" style="padding: 10px">
 					<% for (const [i, emote] of data.Twitch.entries()) { %>
-					<div class="row twitch" id="emote-twitch-<%= emote.id %>" data-count="<%= emote.usage %>">
+					<div class="row row-twitch" id="emote-twitch-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
 							<p class="count flex-center"><%= i+1 %></p>
 						</div>
@@ -34,7 +34,7 @@
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="twitch-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="usage-twitch-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
@@ -42,15 +42,15 @@
 			</div>
 			<% } %>
 			<% if (data.BTTV) { %>
-			<div class="top col-md" id="bttv">
+			<div class="top col-md" id="col-bttv">
 				<div class="header">
 					<img class="logo" src="/static/bttv.svg" title="BetterTTV" alt="BetterTTV" draggable="false" />
 					<h3 class="largeName">BetterTTV</h3>
 					<h3 class="shortName">BTTV</h3>
 				</div>
-				<div class="emotes" id="bttv-emotes" style="padding: 10px">
+				<div class="emotes" id="emotes-bttv" style="padding: 10px">
 					<% for (const [i, emote] of data.BTTV.entries()) { %>
-					<div class="row bttv" id="emote-bttv-<%= emote.id %>" data-count="<%= emote.usage %>">
+					<div class="row row-bttv" id="emote-bttv-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
 							<p class="count flex-center"><%= i+1 %></p>
 						</div>
@@ -66,7 +66,7 @@
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="bttv-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="usage-bttv-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
@@ -74,15 +74,15 @@
 			</div>
 			<% } %>
 			<% if (data.FFZ) { %>
-			<div class="top col-md" id="ffz">
+			<div class="top col-md" id="col-ffz">
 				<div class="header">
 					<img class="logo" src="/static/ffz.svg" title="FrankerFaceZ" alt="FrankerFaceZ" draggable="false" />
 					<h3 class="largeName">FrankerFaceZ</h3>
 					<h3 class="shortName">FFZ</h3>
 				</div>
-				<div class="emotes" id="ffz-emotes" style="padding: 10px">
+				<div class="emotes" id="emotes-ffz" style="padding: 10px">
 					<% for (const [i, emote] of data.FFZ.entries()) { %>
-					<div class="row ffz" id="emote-ffz-<%= emote.id %>" data-count="<%= emote.usage %>">
+					<div class="row row-ffz" id="emote-ffz-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
 							<p class="count flex-center"><%= i+1 %></p>
 						</div>
@@ -98,7 +98,7 @@
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="ffz-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="usage-ffz-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>
@@ -106,14 +106,14 @@
 			</div>
 			<% } %>
 			<% if (data.STV) { %>
-			<div class="top col-md" id="7tv">
+			<div class="top col-md" id="col-7tv">
 				<div class="header">
 					<img class="logo" src="/static/7tv.svg" title="7TV" alt="7TV" draggable="false" />
 					<h3>7TV</h3>
 				</div>
-				<div class="emotes" id="stv-emotes" style="padding: 10px">
+				<div class="emotes" id="emotes-7tv" style="padding: 10px">
 					<% for (const [i, emote] of data.STV.entries()) { %>
-					<div class="row stv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
+					<div class="row row-7tv" id="emote-7tv-<%= emote.id %>" data-count="<%= emote.usage %>">
 						<div class="col-2 flex-center countNumber">
 							<p class="count flex-center"><%= i+1 %></p>
 						</div>
@@ -129,7 +129,7 @@
 						</div>
 						<div class="col-5">
 							<h3 class="emote_name"><%= emote.name %></h3>
-							<p class="emote_usage" id="7tv-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
+							<p class="emote_usage" id="usage-7tv-<%= emote.id %>"><%= emote.usage.toLocaleString("en-US") %></p>
 						</div>
 					</div>
 					<% } %>

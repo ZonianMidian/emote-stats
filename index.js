@@ -50,6 +50,8 @@ async function parseEmotes(emotes, extension) {
 		case '7TV': {
 			const emoteArray = [];
 			emotes.map((emote) => {
+				if (emote.id === '000000000000000000000000') return;
+
 				const id = emote.id && emote.id.length === 24 ? objectIdToUlid(emote.id) : emote.id;
 
 				const emoteData = {
@@ -87,39 +89,17 @@ function encodeULIDPart(part, size) {
 	return result;
 }
 
-async function getChannel(channel) {
-	const { body: SE_Stats, statusCode: SE_Status } = await got(`https://api.streamelements.com/kappa/v2/chatstats/${channel}/stats`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
-	});
-	const SE =
-		SE_Status < 200 || SE_Status > 299
-			? {}
-			: {
-					BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
-					FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
-					Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
-					STV: await parseEmotes(SE_Stats.sevenTVEmotes, '7TV'),
-				};
+async function mergeProviders(sources) {
+	const validSources = sources.filter((obj) => Object.keys(obj).length > 0);
 
-	const { body: MZ_Stats, statusCode: MZ_Status } = await got(`https://7tv.markzynk.com/c/${channel}`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
-	});
-	const MZ = MZ_Status < 200 || MZ_Status > 299 ? {} : { STV: await parseEmotes(MZ_Stats.emotes, '7TV') };
+	if (validSources.length === 0) return {};
 
-	const sources = [SE, MZ].filter((obj) => Object.keys(obj).length > 0);
-
-	if (sources.length === 0) return {};
-
-	const allKeys = Array.from(new Set(sources.flatMap((obj) => Object.keys(obj))));
+	const allKeys = Array.from(new Set(validSources.flatMap((obj) => Object.keys(obj))));
 	let onlySE = false;
 	const result = {};
 
 	for (const key of allKeys) {
-		const arrays = sources.map((obj) => obj[key]).filter(Boolean);
+		const arrays = validSources.map((obj) => obj[key]).filter(Boolean);
 
 		if (arrays.length === 0) continue;
 		if (arrays.length > 1) onlySE = true;
@@ -163,25 +143,58 @@ async function getChannel(channel) {
 	return result;
 }
 
+async function getChannel(channel) {
+	const { body: SE_Stats, statusCode: SE_Status } = await got(`https://api.streamelements.com/kappa/v2/chatstats/${channel}/stats`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
+	});
+	const SE =
+		SE_Status < 200 || SE_Status > 299
+			? {}
+			: {
+					BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
+					FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
+					Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
+					STV: await parseEmotes(SE_Stats.sevenTVEmotes, '7TV'),
+				};
+
+	const { body: MZ_Stats, statusCode: MZ_Status } = await got(`https://7tv.markzynk.com/c/${channel}`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
+	});
+	const MZ = MZ_Status < 200 || MZ_Status > 299 ? {} : { STV: await parseEmotes(MZ_Stats.emotes, '7TV') };
+
+	return await mergeProviders([SE, MZ]);
+}
+
 async function getGlobals() {
-	const { body: SE_Stats } = await got(`https://api.streamelements.com/kappa/v2/chatstats/global/stats`, {
+	const { body: SE_Stats, statusCode: SE_Status } = await got(`https://api.streamelements.com/kappa/v2/chatstats/global/stats`, {
 		throwHttpErrors: false,
 		responseType: 'json',
 		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
 	});
 
-	const { body: K_Stats } = await got(`https://7tv.markzynk.com/top`, {
+	const { body: K_Stats, statusCode: K_Status } = await got(`https://7tv.markzynk.com/top`, {
 		throwHttpErrors: false,
 		responseType: 'json',
 		headers: { 'User-Agent': 'Emote Stats by ZonianMidian' },
 	});
 
-	return {
-		BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
-		FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
-		Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
-		STV: await parseEmotes(K_Stats.emotes, '7TV'),
-	};
+	const SE =
+		SE_Status < 200 || SE_Status > 299
+			? {}
+			: {
+					BTTV: await parseEmotes(SE_Stats.bttvEmotes, 'BTTV'),
+					FFZ: await parseEmotes(SE_Stats.ffzEmotes, 'FFZ'),
+					Twitch: await parseEmotes(SE_Stats.twitchEmotes, 'Twitch'),
+					STV: await parseEmotes(SE_Stats.sevenTVEmotes, '7TV'),
+				};
+
+	const K = K_Status < 200 || K_Status > 299 ? {} : { STV: await parseEmotes(K_Stats.emotes, '7TV') };
+
+	return await mergeProviders([SE, K]);
 }
 
 app.get('/', (req, res) => {

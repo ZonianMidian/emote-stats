@@ -1,6 +1,6 @@
 function UpdateEmote(data, type) {
 	const { count = 0, amount, name, alias, key, id } = data;
-	const emoteCount = document.getElementById(`${type}-${id}`);
+	const emoteCount = document.getElementById(`usage-${type}-${id}`);
 
 	if (emoteCount) {
 		const oldCount = parseInt(emoteCount.innerHTML.replace(/\.|'|,/g, ''), 10);
@@ -12,12 +12,12 @@ function UpdateEmote(data, type) {
 
 		reorderDivs(type);
 	} else {
-		const emoteDiv = document.getElementById(`${type}-emotes`);
+		const emoteDiv = document.getElementById(`emotes-${type}`);
 		const divs = emoteDiv.querySelectorAll('div');
 		const nextNumber = divs.length / 4;
 
 		const emoteRow = document.createElement('div');
-		emoteRow.className = `row ${type}`;
+		emoteRow.className = `row row-${type}`;
 		emoteRow.id = `emote-${type}-${id}`;
 		emoteRow.dataset.count = amount || count;
 		emoteDiv.appendChild(emoteRow);
@@ -53,7 +53,7 @@ function UpdateEmote(data, type) {
 
 		const emoteUsage = document.createElement('p');
 		emoteUsage.className = 'emote_usage';
-		emoteUsage.id = `${type}-${id}`;
+		emoteUsage.id = `usage-${type}-${id}`;
 		emoteUsage.textContent = amount || count;
 		counterNumber.appendChild(emoteUsage);
 
@@ -63,29 +63,30 @@ function UpdateEmote(data, type) {
 
 function emoteLink(id, extension) {
 	switch (extension) {
+		case 'betterttv':
 		case 'bttv':
 			return `https://cdn.betterttv.net/emote/${id}/2x`;
+		case 'frankerfacez':
 		case 'ffz':
 			return `https://cdn.frankerfacez.com/emoticon/${id}/2`;
-		case 'twitch':
-			return `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/2.0`;
+		case 'seventv':
 		case '7tv':
 			return `https://cdn.7tv.app/emote/${id}/2x.webp`;
+		case 'twitch':
+			return `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/2.0`;
 	}
 }
 
 function reorderDivs(type) {
-	type = type.toLowerCase().replace('7tv', 'stv');
-
-	let divList = document.querySelectorAll(`.${type}`);
+	let divList = document.querySelectorAll(`.row-${type}`);
 	divList = Array.from(divList).sort((a, b) => b.dataset.count - a.dataset.count);
 
-	const emoteDiv = document.getElementById(`${type}-emotes`);
+	const emoteDiv = document.getElementById(`emotes-${type}`);
 	emoteDiv.innerHTML = '';
 
 	let i = 1;
 	divList.forEach((div) => {
-		if (div.className === `row ${type}`) {
+		if (div.className === `row row-${type}`) {
 			const countNumber = div.querySelector('.countNumber');
 			countNumber.textContent = i;
 			emoteDiv.appendChild(div);
